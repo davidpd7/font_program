@@ -1,4 +1,5 @@
 import random
+import pygame
 
 class Letter:
 
@@ -11,7 +12,8 @@ class Letter:
         self.__position = init_pos
         self.__end_pos = end_pos
 
-        self.__image = font.render(f"{text}", True, Letter.__foreground_color, None)
+        self.__image = font.render(f"{text}", True,self.__random_color(), None)
+        self.__alive = True
 
 
     def render(self, surface_dst):
@@ -20,3 +22,15 @@ class Letter:
 
     def update(self, delta_time):
         self.__position.y += self.__speed * delta_time
+        if self.__position.y >= self.__end_pos.y: 
+            self.__alive = False
+
+    
+    def __random_color(self):
+        r = random.randrange(0,255)
+        g = random.randrange(0,255)
+        b = random.randrange(0,255)
+        return pygame.Color(r,g,b)
+
+    def is_alive(self):
+        return self.__alive

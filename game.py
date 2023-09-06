@@ -49,7 +49,11 @@ class Game:
 
     def __update(self, delta_time):
         for letter in self.__letters:
-            letter.update(delta_time)
+            if letter.is_alive():
+                letter.update(delta_time)
+            else:
+            
+                self.__letters.remove(letter)
 
     def __render(self):
         self.__screen.fill(Game.__background_color)
